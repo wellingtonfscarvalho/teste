@@ -17,12 +17,12 @@ public class AccountServiceImpl implements AccountService{
 	private AccountRepository accountRepository;
 	
 	@Override
-	public void criarConta(Account account) {
+	public void insertAccount(Account account) {
 		accountRepository.save(account);
 	}
 	
 	@Override
-	public Account consultarContaPorId(Long id) {
+	public Account findAccountById(Long id) {
 		Optional<Account> optional = accountRepository.findById(id);
 		
 		if ( !optional.isPresent() ) {
@@ -30,6 +30,11 @@ public class AccountServiceImpl implements AccountService{
 		}
 		
 		return optional.get();
+	}
+	
+	@Override
+	public void isAccountValid(Long id) {
+		this.findAccountById(id);
 	}
 
 }

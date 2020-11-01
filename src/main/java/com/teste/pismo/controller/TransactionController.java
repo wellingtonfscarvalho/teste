@@ -23,9 +23,9 @@ public class TransactionController {
 	private TransactionService transactionService;
 	
 	@PostMapping( value = "/transactions" )
-	public ResponseEntity inserirTransacao(@RequestBody Transaction transaction) {
-		transactionService.inserirTransacao(transaction);
-		return new ResponseEntity(HttpStatus.OK);
+	public ResponseEntity<?> insertTransaction(@RequestBody Transaction transaction) {
+		transactionService.insertTransaction(transaction);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 	@GetMapping( value = "/transactions/list" )

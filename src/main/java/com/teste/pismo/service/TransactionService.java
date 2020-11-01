@@ -6,7 +6,7 @@ import com.teste.pismo.model.Transaction;
 
 public interface TransactionService {
 
-	void inserirTransacao(Transaction transaction);
+	void insertTransaction(Transaction transaction);
 	
 	List<Transaction> listAll();
 	

@@ -4,8 +4,10 @@ import com.teste.pismo.model.Account;
 
 public interface AccountService {
 	
-	void criarConta(Account account);
+	void insertAccount(Account account);
 	
-	Account consultarContaPorId(Long id);
-
+	Account findAccountById(Long id);
+	
+	void isAccountValid(Long id);
+	
 }

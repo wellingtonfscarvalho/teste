@@ -22,15 +22,15 @@ public class AccountController {
 	private AccountService accountService;
 	
 	@PostMapping(value = "/accounts")
-	public ResponseEntity criarConta(@RequestBody Account account) {
+	public ResponseEntity<?> insertAccount(@RequestBody Account account) {
 		System.out.println("######### Document Number: " + account.getDocumentNumber());
-		accountService.criarConta(account);
+		accountService.insertAccount(account);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/accounts/{accountId}")
-	public Account consultarConta(@PathVariable("accountId") Long id) {
-		return accountService.consultarContaPorId(id);
+	public Account findAccountById(@PathVariable("accountId") Long id) {
+		return accountService.findAccountById(id);
 	}
 	
 }
