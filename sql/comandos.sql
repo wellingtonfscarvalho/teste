@@ -19,8 +19,8 @@ CREATE TABLE `testepismo`.`Transactions` (
   `Amount` DECIMAL(10,3) NULL,
   `EventDate` DATETIME NULL,
   PRIMARY KEY (`id`),
-  INDEX `FK_Transactions_Accounts_idx` (`Account_Id` ASC) VISIBLE,
-  INDEX `FK_Transactions_OperationsTypes_idx` (`OperationType_Id` ASC) VISIBLE,
+  INDEX `FK_Transactions_Accounts_idx` (`Account_Id` ASC),
+  INDEX `FK_Transactions_OperationsTypes_idx` (`OperationType_Id` ASC),
   CONSTRAINT `FK_Transactions_Accounts`
     FOREIGN KEY (`Account_Id`)
     REFERENCES `testepismo`.`Accounts` (`Id`)
