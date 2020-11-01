@@ -1,0 +1,25 @@
+version: '3.1'
+
+services:
+
+  db:
+    image: mysql:5.7
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: 123456
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d
+
+  app:
+    image: teste-pismo
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    networks:
+      - net-backend
+
+networks:
+  net-backend:
+      
