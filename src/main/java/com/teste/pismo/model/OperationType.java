@@ -24,6 +24,13 @@ public class OperationType implements Serializable {
 	@Column( name = "Description" )
 	private String description;
 	
+	public OperationType() {
+	}
+	
+	public OperationType(Integer id) {
+		this.id = id;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
