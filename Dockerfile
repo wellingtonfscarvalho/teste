@@ -1,4 +1,4 @@
-FROM openjdk:8-jdk-alpine
+FROM openjdk:8
 
 COPY ./target/testePismo-*.jar /opt/testePismo.jar
 COPY wait-for-it.sh /opt/wait-for-it.sh
