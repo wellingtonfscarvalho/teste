@@ -20,10 +20,12 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import com.google.gson.Gson;
 import com.teste.pismo.model.Account;
 import com.teste.pismo.repository.AccountRepository;
 import com.teste.pismo.repository.TransactionRepository;
 import com.teste.pismo.util.AccountTestUtil;
+import com.teste.pismo.util.MessageReturnTest;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {com.teste.pismo.TestePismoApplication.class})
@@ -48,7 +50,21 @@ public class TransactionControllerTest {
 		
 		RequestBuilder request = MockMvcRequestBuilders.post("/transactions")
 				.accept(MediaType.APPLICATION_JSON)
-				.content("{\"account\":{\"accountId\":1},\"operationType\":{\"id\":4},\"amount\": 500}")
+				.content("{\"account\":{\"accountId\":1},\"operationType\":{\"id\":4},\"amount\": 50}")
+				.contentType(MediaType.APPLICATION_JSON);
+		
+		MvcResult result = mockMvc.perform(request).andReturn();
+		
+		Assertions.assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+	}
+	
+	@Test
+	public void insertTransactionDebito() throws Exception {
+		Mockito.when(accountRepository.findById(Mockito.anyLong())).thenReturn(AccountTestUtil.populateAccount());
+		
+		RequestBuilder request = MockMvcRequestBuilders.post("/transactions")
+				.accept(MediaType.APPLICATION_JSON)
+				.content("{\"account\":{\"accountId\":1},\"operationType\":{\"id\":3},\"amount\": 50}")
 				.contentType(MediaType.APPLICATION_JSON);
 		
 		MvcResult result = mockMvc.perform(request).andReturn();
@@ -68,5 +84,21 @@ public class TransactionControllerTest {
 		Assertions.assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
 	}
 
+	@Test
+	public void insertTransactionNoLimitAvailable() throws Exception {
+		Mockito.when(accountRepository.findById(Mockito.anyLong())).thenReturn(AccountTestUtil.populateAccount());
+		
+		RequestBuilder request = MockMvcRequestBuilders.post("/transactions")
+				.accept(MediaType.APPLICATION_JSON)
+				.content("{\"account\":{\"accountId\":1},\"operationType\":{\"id\":3},\"amount\": 500}")
+				.contentType(MediaType.APPLICATION_JSON);
+		
+		MvcResult result = mockMvc.perform(request).andReturn();
+		
+		Gson gson = new Gson();
+		MessageReturnTest message = gson.fromJson(result.getResponse().getContentAsString(), MessageReturnTest.class);
+		String messageSemLimite = "Limite nao disponivel pra essa transacao";
+		Assertions.assertThat(message.getMessage()).isEqualTo(messageSemLimite);
+	}
 	
 }

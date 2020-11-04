@@ -1,12 +1,15 @@
 package com.teste.pismo.service.impl;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.teste.pismo.enums.OperationTypeEnum;
 import com.teste.pismo.exception.NegocioException;
 import com.teste.pismo.model.Account;
+import com.teste.pismo.model.Transaction;
 import com.teste.pismo.repository.AccountRepository;
 import com.teste.pismo.service.AccountService;
 
@@ -30,6 +33,12 @@ public class AccountServiceImpl implements AccountService{
 		}
 		
 		return optional.get();
+	}
+	
+	@Override
+	public void updateAvailableCreditLimite(Account account, Transaction transaction) {
+		account.setAvailableCreditLimit(account.getAvailableCreditLimit().add(transaction.getAmount()));
+		accountRepository.save(account);
 	}
 	
 	@Override

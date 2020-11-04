@@ -1,6 +1,7 @@
 package com.teste.pismo.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,6 +34,9 @@ public class Account implements Serializable{
 	@Column(name = "Document_Number")
 	private Long documentNumber;
 	
+	@Column(name = "AvailableCreditLimit")
+	private BigDecimal availableCreditLimit;
+	
 	public Long getAccountId() {
 		return accountId;
 	}
@@ -47,5 +51,13 @@ public class Account implements Serializable{
 	
 	public void setDocumentNumber(Long documentNumber) {
 		this.documentNumber = documentNumber;
+	}
+	
+	public BigDecimal getAvailableCreditLimit() {
+		return availableCreditLimit;
+	}
+	
+	public void setAvailableCreditLimit(BigDecimal availableCreditLimit) {
+		this.availableCreditLimit = availableCreditLimit;
 	}
 }

@@ -46,7 +46,7 @@ public class AccountControllerTest {
 		
 		MvcResult result = mockMvc.perform(request).andReturn();
 		
-		String expected = "{\"accountId\":1,\"documentNumber\":123456789987}";
+		String expected = "{\"accountId\":1,\"documentNumber\":123456789987,\"availableCreditLimit\":100}";
 		
 		Assertions.assertThat(result.getResponse().getContentAsString()).isEqualTo(expected);
 	}

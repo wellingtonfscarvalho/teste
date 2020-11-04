@@ -5,6 +5,7 @@ USE `testepismo`;
 CREATE TABLE `testepismo`.`Accounts` (
   `Id` INT(11) NOT NULL AUTO_INCREMENT,
   `Document_Number` BIGINT(20) NULL,
+  `AvailableCreditLimit` DECIMAL(10,3) NULL
   PRIMARY KEY (`Id`));
   
 CREATE TABLE `testepismo`.`OperationsTypes` (
