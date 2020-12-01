@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.teste.pismo.enums.OperationTypeEnum;
 import com.teste.pismo.exception.NegocioException;
@@ -25,6 +26,7 @@ public class TransactionServiceImpl implements TransactionService {
 	private AccountService accountService;
 	
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void insertTransaction(Transaction transaction) {
 		accountService.isAccountValid(transaction.getAccount().getAccountId());
 		Account account = accountService.findAccountById(transaction.getAccount().getAccountId());
